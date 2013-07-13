@@ -79,6 +79,7 @@ describe('quickpeg parse', function () {
       });
     });
     it('should cache parser to custom dir from a grammar file', function (done) {
+      quickpeg.flushMemory();
       quickpeg(mathGrammarFile, {cache: tmpDir}, function (err, parser) {
         fs.exists(tmpMathParserFile, function (exists) {
           expect(exists).to.be.true;
@@ -95,7 +96,8 @@ describe('quickpeg parse', function () {
         });
       });
     });
-    it('should cache parser to custom dir from a grammar file', function (done) {
+    it('should cache parser to custom file from a grammar file', function (done) {
+      quickpeg.flushMemory();
       quickpeg(mathGrammarFile, {cache: tmpMathParserFile}, function (err, parser) {
         fs.exists(tmpMathParserFile, function (exists) {
           expect(exists).to.be.true;

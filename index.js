@@ -105,6 +105,8 @@ var cachedParserFile = function (grammarFile, cache, cb) {
   }
 };
 
+var parserCache = [];
+
 var parserFromFile = function (defaultOptions, grammarFile, extraOptions, cb) {
   var options = {};
   Object.keys(defaultOptions).forEach(function (key) {
@@ -118,6 +120,9 @@ var parserFromFile = function (defaultOptions, grammarFile, extraOptions, cb) {
     options[key] = extraOptions[key];
   });
   if (options.cache) {
+    if (grammarFile in parserCache) {
+      return cb(null, parserCache[grammarFile]);
+    }
     cachedParserFile(grammarFile, options.cache, function (err, parserFile) {
       if (err) {
         return cb(err);
@@ -126,12 +131,17 @@ var parserFromFile = function (defaultOptions, grammarFile, extraOptions, cb) {
         if (err) {
           return cb(err);
         }
+        parserCache[grammarFile] = parser;
         return cb(null, parser);
       });
     });
   } else {
     loadParser(grammarFile, cb);
   }
+};
+
+var flushMemory = function () {
+  parserCache = [];
 };
 
 var config = function (options) {
@@ -141,6 +151,7 @@ var config = function (options) {
   }
   var fn = parserFromFile.bind(null, options);
   fn.config = config;
+  fn.flushMemory = flushMemory;
   return fn;
 };
 
