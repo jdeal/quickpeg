@@ -1,6 +1,8 @@
 quickpeg
 ========
 
+[![Build Status](https://secure.travis-ci.org/jdeal/quickpeg.png)](http://travis-ci.org/jdeal/quickpeg)
+
 Simple wrapper around pegjs; caches parsers built from grammar files; provides callback interface for parsing files.
 
 See <http://pegjs.majda.cz/documentation#grammar-syntax-and-semantics> for details on grammar files.
