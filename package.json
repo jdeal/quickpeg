@@ -1,0 +1,33 @@
+{
+  "name": "quickpeg",
+  "version": "0.0.0",
+  "description": "Filename/callback interface to pegjs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/*.js -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jdeal/quickpeg.git"
+  },
+  "keywords": [
+    "peg",
+    "pegjs",
+    "parser"
+  ],
+  "author": "Justin Deal",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "7a94c095e330077e5a3e7dc78c5fb86272f95f71",
+  "bugs": {
+    "url": "https://github.com/jdeal/quickpeg/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0",
+    "chai": "~1.7.2"
+  },
+  "dependencies": {
+    "pegjs": "~0.7.0",
+    "fs-compare": "0.0.4"
+  }
+}
