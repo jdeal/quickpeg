@@ -121,5 +121,9 @@ describe('quickpeg parse', function () {
         });
       });
     });
+    it('should be able to parse from memory', function () {
+      var result = quickpeg.parserFromMemory(mathGrammarFile).parse("2*(3+4)");
+      expect(result).to.equal(14);
+    });
   });
 });

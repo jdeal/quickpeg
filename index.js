@@ -140,6 +140,10 @@ var parserFromFile = function (defaultOptions, grammarFile, extraOptions, cb) {
   }
 };
 
+var parserFromMemory = function (grammarFile) {
+  return (grammarFile in parserCache) ? parserCache[grammarFile] : null;
+};
+
 var flushMemory = function () {
   parserCache = [];
 };
@@ -152,6 +156,7 @@ var config = function (options) {
   var fn = parserFromFile.bind(null, options);
   fn.config = config;
   fn.flushMemory = flushMemory;
+  fn.parserFromMemory = parserFromMemory;
   return fn;
 };
 
