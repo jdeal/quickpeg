@@ -132,6 +132,7 @@ describe('quickpeg parse', function () {
       expect(result).to.equal(14);
     });
     it('should be able to parse with complicated grammar', function (done) {
+      this.timeout(5000);
       quickpeg.config({pegjs: {cache: true}})(jsGrammarFile, function (err, parser) {
         parser.parseFile(jsSourceFile, function (err, result) {
           done();
