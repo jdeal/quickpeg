@@ -31,13 +31,13 @@ var extendParser = function (parser) {
   parser.parseFile = parseFile.bind(null, parser);
 };
 
-var loadParser = function (grammarFile, cb) {
+var loadParser = function (grammarFile, options, cb) {
   fs.readFile(grammarFile, 'utf8', function (err, grammarSource) {
     if (err) {
       return cb(err);
     }
     try {
-      var parser = pegjs.buildParser(grammarSource);
+      var parser = pegjs.buildParser(grammarSource, options.pegjs || {});
       extendParser(parser);
       return cb(null, parser);
     } catch (e) {
@@ -46,8 +46,8 @@ var loadParser = function (grammarFile, cb) {
   });
 };
 
-var loadAndSaveParser = function (grammarFile, parserFile, cb) {
-  loadParser(grammarFile, function (err, parser) {
+var loadAndSaveParser = function (grammarFile, parserFile, options, cb) {
+  loadParser(grammarFile, options, function (err, parser) {
     if (err) {
       return cb(err);
     }
@@ -60,14 +60,14 @@ var loadAndSaveParser = function (grammarFile, parserFile, cb) {
   });
 };
 
-var cachedParserFromFile = function (grammarFile, parserFile, cb) {
+var cachedParserFromFile = function (grammarFile, parserFile, options, cb) {
   fsCompare.mtime(grammarFile, parserFile, function (err, diff) {
     var parser;
     if (err) {
       return cb(err);
     }
     if (diff > 0) {
-      return loadAndSaveParser(grammarFile, parserFile, cb);
+      return loadAndSaveParser(grammarFile, parserFile, options, cb);
     } else {
       try {
         parser = require(parserFile);
@@ -127,7 +127,7 @@ var parserFromFile = function (defaultOptions, grammarFile, extraOptions, cb) {
       if (err) {
         return cb(err);
       }
-      cachedParserFromFile(grammarFile, parserFile, function (err, parser) {
+      cachedParserFromFile(grammarFile, parserFile, options, function (err, parser) {
         if (err) {
           return cb(err);
         }
@@ -136,7 +136,7 @@ var parserFromFile = function (defaultOptions, grammarFile, extraOptions, cb) {
       });
     });
   } else {
-    loadParser(grammarFile, cb);
+    loadParser(grammarFile, options, cb);
   }
 };
 

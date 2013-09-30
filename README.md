@@ -35,11 +35,13 @@ disabled). Returns the parser to the callback.
 
 - `grammarFile` - The path to the peg grammar file.
 - `options` - Options:
-  - `cache` - Set to one of the following values:
-    - `true` - Append `.js` to grammar file path and cache to that location.
-    - `false` - Disable parser caching.
-    - `some/dir` - Append `.js` to grammar filename and cache to `some/dir`.
-    - `some/filename` - Cache to `some/filename`.
+    - `cache` - Set to one of the following values:
+        - `true` - Append `.js` to grammar file path and cache to that location.
+        - `false` - Disable parser caching.
+        - `some/dir` - Append `.js` to grammar filename and cache to `some/dir`.
+        - `some/filename` - Cache to `some/filename`.
+    - `pegjs` - Pass through options to PEG.js. See documentation for `buildParser`
+      at <https://github.com/dmajda/pegjs#javascript-api>
 - `cb` - Callback called with `(err, parser)`. See below for the parser API.
 
 ### quickpeg.config(options) : quickpegFunction

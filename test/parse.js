@@ -14,8 +14,14 @@ var mathGrammarFile = Path.join(fixtureDir, mathGrammarFilename);
 var mathParserFile = Path.join(fixtureDir, mathParserFilename);
 var tmpMathParserFile = Path.join(tmpDir, mathParserFilename);
 var mathSourceFile = Path.join(fixtureDir, mathSourceFilename);
+var jsGrammarFilename = 'javascript.grammar';
+var jsParserFilename = jsGrammarFilename + '.js';
+var jsGrammarFile = Path.join(fixtureDir, jsGrammarFilename);
+var jsParserFile = Path.join(fixtureDir, jsParserFilename);
+var jsSourceFilename = 'javascript.source';
+var jsSourceFile = Path.join(fixtureDir, jsSourceFilename);
 
-var tmpFiles = [mathParserFile, tmpMathParserFile];
+var tmpFiles = [mathParserFile, tmpMathParserFile, jsParserFile];
 
 var expect = require('chai').expect;
 
@@ -124,6 +130,13 @@ describe('quickpeg parse', function () {
     it('should be able to parse from memory', function () {
       var result = quickpeg.parserFromMemory(mathGrammarFile).parse("2*(3+4)");
       expect(result).to.equal(14);
+    });
+    it('should be able to parse with complicated grammar', function (done) {
+      quickpeg.config({pegjs: {cache: true}})(jsGrammarFile, function (err, parser) {
+        parser.parseFile(jsSourceFile, function (err, result) {
+          done();
+        });
+      });
     });
   });
 });
