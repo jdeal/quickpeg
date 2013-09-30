@@ -1,6 +1,6 @@
 {
   "name": "quickpeg",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Filename/callback interface to pegjs.",
   "main": "index.js",
   "scripts": {
